@@ -24,8 +24,7 @@ public class Country {
     @JsonIgnoreProperties({"country"})
     private List<Plant> plants;
 
-    public Country(long id, String name, Climate climate) {
-        this.id = id;
+    public Country(String name, Climate climate) {
         this.name = name;
         this.climate = climate;
         this.plants = new ArrayList<>();

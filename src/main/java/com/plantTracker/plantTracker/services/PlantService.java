@@ -23,7 +23,7 @@ public class PlantService {
         Priority priority = Priority.valueOf(plantDTO.getPriority());
         String lastWatered = plantDTO.getLastWatered();
         long countryId = plantDTO.getCountryId();
-        Country country = countryService.findCountryById(countryId);
+        Country country = countryService.getCountryById(countryId).get();
         Plant plant = new Plant(name, priority, lastWatered, country);
 
         plantRepository.save(plant);
