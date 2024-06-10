@@ -1,12 +1,12 @@
 package com.plantTracker.plantTracker.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 @Entity
+@Table(name = "people")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,6 @@ public class Person {
     @OneToMany(mappedBy = "person")
     @JsonIgnoreProperties({"person"})
     private List<Duty> duties;
-
 
     public Person(long id, String name) {
         this.id = id;
