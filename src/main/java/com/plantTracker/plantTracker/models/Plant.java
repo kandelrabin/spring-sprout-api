@@ -28,7 +28,9 @@ public class Plant {
     @Column(name = "last_watered")
     private String lastWatered;
 
-    @Column(name = "country")
+    @ManyToOne
+    @JoinColumn(name = "country_id", nullable = false)
+    @JsonIgnoreProperties("{plants}")
     private Country country;
 
     @OneToMany(mappedBy = "plant")

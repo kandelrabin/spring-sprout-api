@@ -8,6 +8,8 @@ import com.plantTracker.plantTracker.repositories.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PlantService {
 
@@ -29,6 +31,10 @@ public class PlantService {
         plantRepository.save(plant);
 
         return plant;
+    }
+
+    public Optional<Plant> getPlantById(long id){
+        return plantRepository.findById(id);
     }
 
 }
