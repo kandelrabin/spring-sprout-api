@@ -10,6 +10,7 @@ import com.plantTracker.plantTracker.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,13 +27,21 @@ public class PlantController {
     @Autowired
     CountryService countryService;
 
+    //CREATE
     @PostMapping
     public ResponseEntity<List<Plant>> postPlant(PlantDTO plantDTO){
        plantService.addNewPlant(plantDTO);
        List<Plant> plants = plantService.getAllPlants();
        return new ResponseEntity<>(plants, HttpStatus.OK);
-
     }
+
+    //INDEX
+    @GetMapping
+    public ResponseEntity<List<Plant>>getAllPlants(){
+        List<Plant> plants = plantService.getAllPlants();
+        return new ResponseEntity<>(plants, HttpStatus.OK);
+    }
+
 
 }
 
