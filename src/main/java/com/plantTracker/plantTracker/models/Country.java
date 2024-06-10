@@ -1,6 +1,7 @@
 package com.plantTracker.plantTracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.plantTracker.plantTracker.models.enums.Climate;
 import jakarta.persistence.*;
 
 import java.util.*;
