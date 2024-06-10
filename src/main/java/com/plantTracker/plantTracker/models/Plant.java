@@ -30,8 +30,8 @@ public class Plant {
     @Column(name = "country")
     private Country country;
 
-    @OneToMany(mappedBy = "plant")
-    @JsonIgnoreProperties({"plant"})
+    @OneToMany(mappedBy = "plant")@JsonIgnoreProperties({"plant"})
+
     private List<Duty> duties;
 
     public Plant(long id, String name, Priority priority, Boolean isWatered, String lastWatered, Country country) {
