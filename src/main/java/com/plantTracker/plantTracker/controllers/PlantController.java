@@ -32,7 +32,6 @@ public class PlantController {
        List<Plant> plants = plantService.getAllPlants();
        return new ResponseEntity<>(plants, HttpStatus.OK);
 
-
     }
 
 }
