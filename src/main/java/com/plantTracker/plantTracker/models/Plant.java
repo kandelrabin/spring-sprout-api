@@ -1,7 +1,8 @@
 package com.plantTracker.plantTracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.annotation.Priority;
+
+import com.plantTracker.plantTracker.models.enums.Priority;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -30,15 +31,14 @@ public class Plant {
     @Column(name = "country")
     private Country country;
 
-    @OneToMany(mappedBy = "plant")@JsonIgnoreProperties({"plant"})
-
+    @OneToMany(mappedBy = "plant")
+    @JsonIgnoreProperties({"plant"})
     private List<Duty> duties;
 
-    public Plant(long id, String name, Priority priority, Boolean isWatered, String lastWatered, Country country) {
-        this.id = id;
+    public Plant(String name, Priority priority, String lastWatered, Country country) {
         this.name = name;
         this.priority = priority;
-        this.isWatered = isWatered;
+        this.isWatered = false;
         this.lastWatered = lastWatered;
         this.country = country;
         this.duties = new ArrayList<>();
