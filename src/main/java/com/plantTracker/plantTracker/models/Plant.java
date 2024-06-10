@@ -1,7 +1,8 @@
 package com.plantTracker.plantTracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.annotation.Priority;
+
+import com.plantTracker.plantTracker.models.enums.Priority;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -34,8 +35,7 @@ public class Plant {
     @JsonIgnoreProperties({"plant"})
     private List<Duty> duties;
 
-    public Plant(long id, String name, Priority priority, String lastWatered, Country country) {
-        this.id = id;
+    public Plant(String name, Priority priority, String lastWatered, Country country) {
         this.name = name;
         this.priority = priority;
         this.isWatered = false;

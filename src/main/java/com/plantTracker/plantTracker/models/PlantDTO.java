@@ -5,12 +5,12 @@ import com.plantTracker.plantTracker.models.enums.Priority;
 public class PlantDTO {
 
     private String name;
-    private Priority priority;
+    private String priority;
     private String lastWatered;
-    private Long countryId;
+    private long countryId;
 
 
-    public PlantDTO(String name, Priority priority, String lastWatered, Long countryId) {
+    public PlantDTO(String name, String priority, String lastWatered, long countryId) {
         this.name = name;
         this.priority = priority;
         this.lastWatered = lastWatered;
@@ -28,11 +28,11 @@ public class PlantDTO {
         this.name = name;
     }
 
-    public Priority getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
@@ -44,11 +44,11 @@ public class PlantDTO {
         this.lastWatered = lastWatered;
     }
 
-    public Long getCountryId() {
+    public long getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Long countryId) {
+    public void setCountryId(long countryId) {
         this.countryId = countryId;
     }
 }
