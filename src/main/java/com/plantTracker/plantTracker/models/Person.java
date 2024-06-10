@@ -19,8 +19,7 @@ public class Person {
     @JsonIgnoreProperties({"person"})
     private List<Duty> duties;
 
-    public Person(long id, String name) {
-        this.id = id;
+    public Person(String name) {
         this.name = name;
         this.duties = new ArrayList<>();
     }

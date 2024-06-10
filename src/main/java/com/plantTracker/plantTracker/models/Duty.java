@@ -23,8 +23,7 @@ public class Duty {
     @JsonIgnoreProperties({"duties"})
     private Person person;
 
-    public Duty(long id, Plant plant, Person person) {
-        this.id = id;
+    public Duty(Plant plant, Person person) {
         this.plant = plant;
         this.person = person;
     }
