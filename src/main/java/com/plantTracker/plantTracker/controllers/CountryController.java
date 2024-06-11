@@ -50,14 +50,14 @@ public class CountryController {
 
     // PARTIAL UPDATE: PATCH - localhost:8080/countries/id
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Country> updateDutyPlant(@RequestBody CountryDTO countryDTO, @PathVariable Long id) {
+    public ResponseEntity<Country> updateDutyPlant(@PathVariable Long id, @RequestBody Map<Optional<String>, Optional<String>> updatePayload) {
 
-        if (PLACEHOLDER.get("name").isPresent()) {
-            Country country = countryService.updateCountryName(id, countryDTO.getName());
+        if (updatePayload.get("name").isPresent()) {
+            Country country = countryService.updateCountryName(id, updatePayload.get("name").get());
             return new ResponseEntity<>(country, HttpStatus.OK);
 
-        } else if (PLACEHOLDER.get("climate").isPresent()) {
-            Climate climate = Climate.valueOf(countryDTO.getClimate());
+        } else if (updatePayload.get("climate").isPresent()) {
+            Climate climate = Climate.valueOf(updatePayload.get("climate").get());
             Country country = countryService.updateCountryClimate(id, climate);
             return new ResponseEntity<>(country, HttpStatus.OK);
 

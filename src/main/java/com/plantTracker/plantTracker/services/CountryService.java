@@ -48,7 +48,6 @@ public class CountryService {
         return updateNameCountry;
     }
 
-
     // PARTIAL UPDATE - COUNTRY CLIMATE
     public Country updateCountryClimate(long countryId, Climate climate){
         Country updateClimateCountry = getCountryById(countryId).get();
