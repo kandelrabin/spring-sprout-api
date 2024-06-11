@@ -6,9 +6,7 @@ import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Optional;
@@ -20,6 +18,7 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
+    //    CREATE: POST - localhost:8080/people
     @PostMapping
     public ResponseEntity<Person> addNewPerson(Map<Optional<String>, Optional<String>> personPayload){
         if (personPayload.get("name").isPresent()){
@@ -27,6 +26,17 @@ public class PersonController {
             return new ResponseEntity<>(person, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+    }
+
+    //    SHOW: GET - localhost:8080/people/id
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Person> getPersonById(@PathVariable Long id){
+        Optional<Person> personOptional = personService.getPersonById(id);
+        if (personOptional.isPresent()){
+            return new ResponseEntity<>(personOptional.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
