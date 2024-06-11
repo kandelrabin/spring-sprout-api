@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -51,10 +52,34 @@ public class PlantService {
     }
 
 //    PARTIAL UPDATE: PATCH - localhost:8080/people/id
+// to update one variable at once
+    public Plant updatePlantPartial(long id, Map< Optional<String>, Optional<String>> updatePayload){
+        Plant plant = plantRepository.findById(id).get();
 
+        if (updatePayload.get("name").isPresent()){
+            plant.setName(updatePayload.get("name").get());
+
+        } else if (updatePayload.get("priotity").isPresent()) {
+            Priority priority = Priority.valueOf(updatePayload.get("priority").get());
+            plant.setPriority(priority);
+        } else if (updatePayload.get("lastWatered").isPresent()) {
+            plant.setLastWatered(updatePayload.get("lastWatered").get());
+
+        }else if (updatePayload.get("countryId").isPresent()){
+            Long countryId = Long.parseLong(updatePayload.get("countryId").get());
+            Country country = countryService.getCountryById(countryId).get();
+
+            plant.setCountry( country);
+        } else{
+            return null;
+        }
+         plantRepository.save(plant);
+
+        return plant;
+    }
 
 //    FULL UPDATE: PUT - localhost:8080/people/id
-    public Plant updatePlant(Long id, PlantDTO plantDTO){
+    public Plant updatePlantFull(Long id, PlantDTO plantDTO){
        Plant plant = plantRepository.findById(id).get();
 
        String name = plantDTO.getName();
