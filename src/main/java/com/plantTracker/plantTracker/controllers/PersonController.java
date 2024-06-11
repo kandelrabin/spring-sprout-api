@@ -59,6 +59,12 @@ public class PersonController {
         }
     }
 
+    //    DELETE: DELETE - localhost:8080/people/id
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id){
+        personService.deletePerson(id);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 
 
 
