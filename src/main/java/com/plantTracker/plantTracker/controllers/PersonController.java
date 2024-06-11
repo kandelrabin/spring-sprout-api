@@ -21,9 +21,10 @@ public class PersonController {
 
     //    CREATE: POST - localhost:8080/people
     @PostMapping
-    public ResponseEntity<Person> addNewPerson(Map<Optional<String>, Optional<String>> personPayload){
-        if (personPayload.get("name").isPresent()){
-            Person person = personService.addNewPerson(personPayload.get("name").get());
+    public ResponseEntity<Person> addNewPerson(@RequestBody Map<String, String> personPayload){
+        if (!personPayload.get("name").isBlank()){
+            String name = personPayload.get("name");
+            Person person = personService.addNewPerson(name);
             return new ResponseEntity<>(person, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -50,9 +51,10 @@ public class PersonController {
 
     //    FULL/PARTIAL UPDATE: PUT - localhost:8080/people/id
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable Long id, Map<Optional<String>, Optional<String>> updatePayLoad){
-        if (updatePayLoad.get("name").isPresent()){
-            Person person = personService.updatePerson(id, updatePayLoad.get("name").get());
+    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Map<String, String> updatePayLoad){
+        if (!updatePayLoad.get("name").isBlank()){
+            String name = updatePayLoad.get("name");
+            Person person = personService.updatePerson(id, name);
             return new ResponseEntity<>(person, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

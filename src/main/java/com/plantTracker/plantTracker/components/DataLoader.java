@@ -2,8 +2,6 @@ package com.plantTracker.plantTracker.components;
 
 
 import com.plantTracker.plantTracker.models.*;
-import com.plantTracker.plantTracker.models.enums.Climate;
-import com.plantTracker.plantTracker.models.enums.Priority;
 import com.plantTracker.plantTracker.services.CountryService;
 import com.plantTracker.plantTracker.services.DutyService;
 import com.plantTracker.plantTracker.services.PersonService;
@@ -14,7 +12,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Dataloader implements ApplicationRunner {
+public class DataLoader implements ApplicationRunner {
 
     @Autowired
     PlantService plantService;
