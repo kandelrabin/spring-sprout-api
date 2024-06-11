@@ -26,7 +26,7 @@ public class PlantService {
     @Autowired
     DutyRepository dutyRepository;
 
-    //    CREATE: POST - localhost:8080/people
+    //    CREATE: POST - localhost:8080/plants
     public Plant addNewPlant(PlantDTO plantDTO){
 
         String name = plantDTO.getName();
@@ -41,17 +41,17 @@ public class PlantService {
         return plant;
     }
 
-    //    SHOW: GET - localhost:8080/people/id
+    //    SHOW: GET - localhost:8080/plants/id
     public Optional<Plant> getPlantById(long id){
         return plantRepository.findById(id);
     }
 
-    //    INDEX: GET - localhost:8080/people
+    //    INDEX: GET - localhost:8080/plants
     public List<Plant> getAllPlants(){
         return plantRepository.findAll();
     }
 
-//    PARTIAL UPDATE: PATCH - localhost:8080/people/id
+//    PARTIAL UPDATE: PATCH - localhost:8080/plants/id
 // to update one variable at once
     public Plant updatePlantPartial(long id, Map< Optional<String>, Optional<String>> updatePayload){
         Plant plant = plantRepository.findById(id).get();
@@ -78,7 +78,7 @@ public class PlantService {
         return plant;
     }
 
-//    FULL UPDATE: PUT - localhost:8080/people/id
+//    FULL UPDATE: PUT - localhost:8080/plants/id
     public Plant updatePlantFull(Long id, PlantDTO plantDTO){
        Plant plant = plantRepository.findById(id).get();
 
@@ -102,7 +102,7 @@ public class PlantService {
 
     }
 
-//    DELETE: DELETE - localhost:8080/people/id
+//    DELETE: DELETE - localhost:8080/plants/id
     public void deletePlant(long id){
         Plant plant = getPlantById(id).get();
         for (Duty duty : plant.getDuties()){
