@@ -20,24 +20,24 @@ public class PersonService {
     @Autowired
     DutyRepository dutyRepository;
 
-    //CREATE
+    //    CREATE: POST - localhost:8080/people
     public Person addNewPerson(String name){
         Person person = new Person(name);
         personRepository.save(person);
         return person;
     }
 
-    //SHOW
+    //    SHOW: GET - localhost:8080/people/id
     public Optional<Person> getPersonById(long id){
         return personRepository.findById(id);
     }
 
-    //INDEX
+    //    INDEX: GET - localhost:8080/people
     public List<Person> getAllPeople(){
         return personRepository.findAll();
     }
 
-    //FULL UPDATE
+    //    FULL/PARTIAL UPDATE: PUT - localhost:8080/people/id
     public Person updatePerson(String name, long id){
         Person personToUpdate = personRepository.findById(id).get();
         personToUpdate.setName(name);
@@ -45,7 +45,7 @@ public class PersonService {
         return personToUpdate;
     }
 
-    //DELETE
+    //    DELETE: DELETE - localhost:8080/people/id
     public void deletePerson(long personId){
         Person person = getPersonById(personId).get();
         for (Duty duty : person.getDuties()){
@@ -54,24 +54,6 @@ public class PersonService {
         personRepository.deleteById(personId);
 
     }
-
-
-//    INDEX: GET - localhost:8080/people
-
-
-//    SHOW: GET - localhost:8080/people/id
-
-
-//    CREATE: POST - localhost:8080/people
-
-
-//    PARTIAL UPDATE: PATCH - localhost:8080/people/id
-
-
-//    FULL UPDATE: PUT - localhost:8080/people/id
-
-
-//    DELETE: DELETE - localhost:8080/people/id
 
 
 }
