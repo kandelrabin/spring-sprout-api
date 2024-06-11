@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -51,11 +52,19 @@ public class PlantController {
     }
 
 //    PARTIAL UPDATE: PATCH -  localhost:8080/plants/id
-
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Plant> updatePlantPartial(@PathVariable Long id, Map< Optional<String>, Optional<String>> updatePayload){
+        Plant plant = plantService.updatePlantPartial(id, updatePayload);
+        return new ResponseEntity<>(plant, HttpStatus.OK);
+    }
 
 
 //    FULL UPDATE: PUT - localhost:8080/plants/id
-
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<Plant> updatePlantFull(@PathVariable Long id, @RequestBody PlantDTO plantDTO){
+        Plant plant = plantService.updatePlantFull(id, plantDTO);
+        return new ResponseEntity<>(plant, HttpStatus.OK);
+    }
 
 
 //    DELETE: DELETE -  localhost:8080/plants/id
