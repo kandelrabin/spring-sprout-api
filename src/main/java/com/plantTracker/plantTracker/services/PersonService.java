@@ -38,7 +38,7 @@ public class PersonService {
     }
 
     //    FULL/PARTIAL UPDATE: PUT - localhost:8080/people/id
-    public Person updatePerson(String name, long id){
+    public Person updatePerson(long id, String name){
         Person personToUpdate = personRepository.findById(id).get();
         personToUpdate.setName(name);
         personRepository.save(personToUpdate);

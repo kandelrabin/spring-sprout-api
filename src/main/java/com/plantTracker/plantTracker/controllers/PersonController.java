@@ -48,5 +48,28 @@ public class PersonController {
         return new ResponseEntity<>(people, HttpStatus.OK);
     }
 
+    //    FULL/PARTIAL UPDATE: PUT - localhost:8080/people/id
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Person> updatePerson(@PathVariable Long id, Map<Optional<String>, Optional<String>> updatePayLoad){
+        if (updatePayLoad.get("name").isPresent()){
+            Person person = personService.updatePerson(id, updatePayLoad.get("name").get());
+            return new ResponseEntity<>(person, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
