@@ -1,9 +1,11 @@
 package com.plantTracker.plantTracker.services;
 
 import com.plantTracker.plantTracker.models.Country;
+import com.plantTracker.plantTracker.models.Duty;
 import com.plantTracker.plantTracker.models.Plant;
 import com.plantTracker.plantTracker.models.PlantDTO;
 import com.plantTracker.plantTracker.models.enums.Priority;
+import com.plantTracker.plantTracker.repositories.DutyRepository;
 import com.plantTracker.plantTracker.repositories.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class PlantService {
 
     @Autowired
     CountryService countryService;
+
+    @Autowired
+    DutyRepository dutyRepository;
 
     //    CREATE: POST - localhost:8080/people
     public Plant addNewPlant(PlantDTO plantDTO){
@@ -73,6 +78,14 @@ public class PlantService {
     }
 
 //    DELETE: DELETE - localhost:8080/people/id
+    public void deletePlant(long id){
+        Plant plant = getPlantById(id).get();
+        for (Duty duty : plant.getDuties()){
+            dutyRepository.deleteById(duty.getId());
+        }
+        plantRepository.deleteById(id);
+
+    }
 
 
 
