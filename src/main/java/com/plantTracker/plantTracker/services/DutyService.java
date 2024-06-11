@@ -8,6 +8,9 @@ import com.plantTracker.plantTracker.repositories.DutyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class DutyService {
 
@@ -20,6 +23,7 @@ public class DutyService {
     @Autowired
     PersonService personService;
 
+    // CREATE
     public Duty addNewDuty(DutyDTO dutyDTO){
         long plantId = dutyDTO.getPlantId();
         long personId = dutyDTO.getPersonId();
@@ -30,6 +34,52 @@ public class DutyService {
 
         dutyRepository.save(duty);
         return duty;
+    }
+
+    //  todo: INDEX
+    public List<Duty> getAllDuties(){
+        return dutyRepository.findAll();
+    }
+
+    // todo: SHOW
+    public Optional<Duty> getDutyById(long id){
+        return dutyRepository.findById(id);
+    }
+
+    // todo: partial UPDATE for plant only
+    // assume: plant is created before updating
+    public Duty updateDutyPlant(long id, long plantId){
+        Plant plant = plantService.getPlantById(plantId).get();
+        Duty duty = dutyRepository.findById(id).get();
+        duty.setPlant(plant);
+        dutyRepository.save(duty);
+        return duty;
+    }
+
+    // todo: partial UPDATE for person only
+    public Duty updateDutyPerson(long dutyId, long personId){
+        Person person = personService.getPersonById(personId).get();
+        Duty duty = dutyRepository.findById(dutyId).get();
+        duty.setPerson(person);
+        dutyRepository.save(duty);
+        return duty;
+    }
+
+    // todo: full update
+    public Duty updateDutyFull(long dutyId, long plantId, long personId){
+        Plant plant = plantService.getPlantById(plantId).get();
+        Person person = personService.getPersonById(personId).get();
+        Duty duty = dutyRepository.findById(dutyId).get();
+        duty.setPlant(plant);
+        duty.setPerson(person);
+        dutyRepository.save(duty);
+        return duty;
+    }
+
+
+    // todo: DELETE
+    public void deleteDuty(long id){
+        dutyRepository.deleteById(id);
     }
 
 }
