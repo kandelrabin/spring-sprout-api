@@ -47,24 +47,46 @@ public class DutyController {
 
 //    PARTIAL UPDATE: PATCH - localhost:8080/duties/id
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Duty> updateDutyPlant(@RequestParam Long id, Map<String, Long> plantPayload){
-        Long plantId = plantPayload.get("plantId");
-        Duty duty = dutyService.updateDutyPlant(id, plantId);
-        return new ResponseEntity<>(duty, HttpStatus.OK);
-    }
+    public ResponseEntity<Duty> updateDutyPlant(@PathVariable Long id, Map<Optional<String>, Optional<Long>> plantOrPersonPayload){
 
-// PARTIAL UPDATE
-    @PatchMapping(value = "/{id}")
-    public ResponseEntity<Duty> updateDutyPerson(@RequestParam Long id, Map<String, Long> personPayload){
-        Long personId = personPayload.get("personId");
-        Duty duty = dutyService.updateDutyPerson(id, personId);
-        return new ResponseEntity<>(duty, HttpStatus.OK);
+        if (plantOrPersonPayload.get("plantId").isPresent()){
+            Long plantId = plantOrPersonPayload.get("plantId").get();
+            Duty duty = dutyService.updateDutyPlant(id, plantId);
+            return new ResponseEntity<>(duty, HttpStatus.OK);
+
+        } else if (plantOrPersonPayload.get("personId").isPresent()) {
+            Long personId = plantOrPersonPayload.get("personId").get();
+            Duty duty = dutyService.updateDutyPerson(id, personId);
+            return new ResponseEntity<>(duty, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+
 
     }
 
 
 //    FULL UPDATE: PUT - localhost:8080/duties/id
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Duty> updateDutyFull(@PathVariable Long id, Map<String, Long> plantPersonPayload){
+        Long plantId = plantPersonPayload.get("plantId");
+        Long personId = plantPersonPayload.get("personId");
+        Duty duty = dutyService.updateDutyFull(id, plantId, personId);
+        return new ResponseEntity<>(duty, HttpStatus.OK);
+    }
 
 //    DELETE: DELETE - localhost:8080/duties/id
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteDuty(@PathVariable Long id){
+        Optional<Duty> dutyOptional = dutyService.getDutyById(id);
+        if (dutyOptional.isPresent()){
+            dutyService.deleteDuty(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }
