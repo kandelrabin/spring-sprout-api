@@ -23,6 +23,7 @@ public class DutyService {
     @Autowired
     PersonService personService;
 
+    // CREATE
     public Duty addNewDuty(DutyDTO dutyDTO){
         long plantId = dutyDTO.getPlantId();
         long personId = dutyDTO.getPersonId();
