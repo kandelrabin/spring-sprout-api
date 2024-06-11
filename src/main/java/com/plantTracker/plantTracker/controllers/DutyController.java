@@ -28,7 +28,7 @@ public class DutyController {
 
 //    SHOW: GET - localhost:8080/duties/id
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Duty> getDutyById(@RequestParam Long id){
+    public ResponseEntity<Duty> getDutyById(@PathVariable Long id){
         Optional<Duty> dutyOptional = dutyService.getDutyById(id);
         if (dutyOptional.isPresent()){
             return new ResponseEntity<>(dutyOptional.get(), HttpStatus.OK);
