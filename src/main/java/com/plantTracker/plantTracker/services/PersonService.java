@@ -56,6 +56,24 @@ public class PersonService {
     }
 
 
+//    INDEX: GET - localhost:8080/people
+
+
+//    SHOW: GET - localhost:8080/people/id
+
+
+//    CREATE: POST - localhost:8080/people
+
+
+//    PARTIAL UPDATE: PATCH - localhost:8080/people/id
+
+
+//    FULL UPDATE: PUT - localhost:8080/people/id
+
+
+//    DELETE: DELETE - localhost:8080/people/id
+
+
 }
 
 
