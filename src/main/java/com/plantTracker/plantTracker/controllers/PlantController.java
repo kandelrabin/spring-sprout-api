@@ -68,7 +68,12 @@ public class PlantController {
 
 
 //    DELETE: DELETE -  localhost:8080/plants/id
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deletePlant(@PathVariable Long id){
+        plantService.deletePlant(id);
 
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 }
 
 
