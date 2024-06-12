@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -53,28 +54,28 @@ public class PlantService {
 
 //    PARTIAL UPDATE: PATCH - localhost:8080/plants/id
 // to update one variable at once
-    public Plant updatePlantPartial(long id, Map< Optional<String>, Optional<String>> updatePayload){
+    public Plant updatePlantPartial(long id, Map< String, String> updatePayload){
         Plant plant = plantRepository.findById(id).get();
 
-        if (updatePayload.get("name").isPresent()){
-            plant.setName(updatePayload.get("name").get());
+        if (!Objects.isNull(updatePayload.get("name"))){
+            plant.setName(updatePayload.get("name"));
 
-        } else if (updatePayload.get("priotity").isPresent()) {
-            Priority priority = Priority.valueOf(updatePayload.get("priority").get());
+        } else if (!Objects.isNull(updatePayload.get("priority"))) {
+            Priority priority = Priority.valueOf(updatePayload.get("priority"));
             plant.setPriority(priority);
-        } else if (updatePayload.get("lastWatered").isPresent()) {
-            plant.setLastWatered(updatePayload.get("lastWatered").get());
 
-        }else if (updatePayload.get("countryId").isPresent()){
-            Long countryId = Long.parseLong(updatePayload.get("countryId").get());
+        } else if (!Objects.isNull(updatePayload.get("lastWatered"))) {
+            plant.setLastWatered(updatePayload.get("lastWatered"));
+
+        } else if (!Objects.isNull(updatePayload.get("countryId"))){
+            Long countryId = Long.parseLong(updatePayload.get("countryId"));
             Country country = countryService.getCountryById(countryId).get();
 
             plant.setCountry( country);
         } else{
             return null;
         }
-         plantRepository.save(plant);
-
+        plantRepository.save(plant);
         return plant;
     }
 
