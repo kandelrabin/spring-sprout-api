@@ -34,12 +34,17 @@ public class Plant {
     @JsonIgnoreProperties({"plant"})
     private List<Duty> duties;
 
+    @Column(name = "interval_between_watering")
+    private int intervalBetweenWatering;
+
+
     public Plant(String name, Priority priority, Country country) {
         this.name = name;
         this.priority = priority;
         this.lastWateredDates = new ArrayList<>();
         this.country = country;
         this.duties = new ArrayList<>();
+        this.intervalBetweenWatering = 2;
     }
     public Plant(){
 
@@ -95,5 +100,13 @@ public class Plant {
 
     public void setDuties(List<Duty> duties) {
         this.duties = duties;
+    }
+
+    public int getIntervalBetweenWatering() { updated plant java
+        return intervalBetweenWatering;
+    }
+
+    public void setIntervalBetweenWatering(int intervalBetweenWatering) {
+        this.intervalBetweenWatering = intervalBetweenWatering;
     }
 }

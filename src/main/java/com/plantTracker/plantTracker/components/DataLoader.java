@@ -35,10 +35,10 @@ public class DataLoader implements ApplicationRunner {
         CountryDTO countryDTO2 = new CountryDTO("USA","TROPICAL");
         Country usa = countryService.addNewCountry(countryDTO2);
 
-        PlantDTO cactusDTO = new PlantDTO("Cactus", "LOW", 1);
+        PlantDTO cactusDTO = new PlantDTO("Cactus", "LOW", 1, "succulents");
         plantService.addNewPlant(cactusDTO);
 
-        PlantDTO daisyDTO = new PlantDTO("Daisy", "LOW", 2);
+        PlantDTO daisyDTO = new PlantDTO("Daisy", "LOW", 2,"null");
         plantService.addNewPlant(daisyDTO);
 
         Person aaron = new Person("Aaron");
