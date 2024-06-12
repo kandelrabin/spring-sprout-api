@@ -3,6 +3,7 @@ package com.plantTracker.plantTracker.services;
 import com.plantTracker.plantTracker.models.*;
 import com.plantTracker.plantTracker.models.enums.Climate;
 import com.plantTracker.plantTracker.repositories.CountryRepository;
+import com.plantTracker.plantTracker.repositories.DutyRepository;
 import com.plantTracker.plantTracker.repositories.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class CountryService {
 
     @Autowired
     PlantRepository plantRepository;
+
+    @Autowired
+    DutyRepository dutyRepository;
 
     // CREATE
     public Country addNewCountry(CountryDTO countryDTO){
@@ -72,11 +76,20 @@ public class CountryService {
 
     // DELETE
     public void deleteCountry(long countryId){
-        Country country = getCountryById(countryId).get();
+        Country country = countryRepository.findById(countryId).get();
         for (Plant plant : country.getPlants()){
-            plantRepository.deleteById(plant.getId());
-        }
+            deletePlantFromCountry(plant.getId());
+            }
         countryRepository.deleteById(countryId);
+    }
+
+    public void deletePlantFromCountry(long id){
+        Plant plant = plantRepository.findById(id).get();
+        for (Duty duty : plant.getDuties()){
+            dutyRepository.deleteById(duty.getId());
+        }
+        plantRepository.deleteById(id);
+
     }
 
 }

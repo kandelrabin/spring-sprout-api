@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -47,15 +48,15 @@ public class DutyController {
 
 //    PARTIAL UPDATE: PATCH - localhost:8080/duties/id
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Duty> updateDutyPlant(@PathVariable Long id, Map<Optional<String>, Optional<Long>> plantOrPersonPayload){
+    public ResponseEntity<Duty> updateDutyPlant(@PathVariable Long id, @RequestBody Map<String, Long> plantOrPersonPayload){
 
-        if (plantOrPersonPayload.get("plantId").isPresent()){
-            Long plantId = plantOrPersonPayload.get("plantId").get();
+        if (!Objects.isNull(plantOrPersonPayload.get("plantId"))){
+            Long plantId = plantOrPersonPayload.get("plantId");
             Duty duty = dutyService.updateDutyPlant(id, plantId);
             return new ResponseEntity<>(duty, HttpStatus.OK);
 
-        } else if (plantOrPersonPayload.get("personId").isPresent()) {
-            Long personId = plantOrPersonPayload.get("personId").get();
+        } else if (!Objects.isNull(plantOrPersonPayload.get("personId"))) {
+            Long personId = plantOrPersonPayload.get("personId");
             Duty duty = dutyService.updateDutyPerson(id, personId);
             return new ResponseEntity<>(duty, HttpStatus.OK);
 
@@ -69,7 +70,7 @@ public class DutyController {
 
 //    FULL UPDATE: PUT - localhost:8080/duties/id
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Duty> updateDutyFull(@PathVariable Long id, Map<String, Long> plantPersonPayload){
+    public ResponseEntity<Duty> updateDutyFull(@PathVariable Long id, @RequestBody Map<String, Long> plantPersonPayload){
         Long plantId = plantPersonPayload.get("plantId");
         Long personId = plantPersonPayload.get("personId");
         Duty duty = dutyService.updateDutyFull(id, plantId, personId);

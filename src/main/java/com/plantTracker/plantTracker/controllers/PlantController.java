@@ -28,7 +28,7 @@ public class PlantController {
 
     //    CREATE: POST - localhost:8080/plants
     @PostMapping
-    public ResponseEntity<List<Plant>> postPlant(PlantDTO plantDTO){
+    public ResponseEntity<List<Plant>> postPlant(@RequestBody PlantDTO plantDTO){
        plantService.addNewPlant(plantDTO);
        List<Plant> plants = plantService.getAllPlants();
        return new ResponseEntity<>(plants, HttpStatus.OK);
@@ -53,14 +53,15 @@ public class PlantController {
 
 //    PARTIAL UPDATE: PATCH -  localhost:8080/plants/id
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Plant> updatePlantPartial(@PathVariable Long id, Map< Optional<String>, Optional<String>> updatePayload){
+    public ResponseEntity<Plant> updatePlantPartial(@PathVariable Long id, @RequestBody Map<String, String> updatePayload){
+
         Plant plant = plantService.updatePlantPartial(id, updatePayload);
         return new ResponseEntity<>(plant, HttpStatus.OK);
     }
 
 
 //    FULL UPDATE: PUT - localhost:8080/plants/id
-    @PostMapping(value = "/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Plant> updatePlantFull(@PathVariable Long id, @RequestBody PlantDTO plantDTO){
         Plant plant = plantService.updatePlantFull(id, plantDTO);
         return new ResponseEntity<>(plant, HttpStatus.OK);

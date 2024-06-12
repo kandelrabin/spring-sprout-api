@@ -30,7 +30,7 @@ public class Plant {
 
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
-    @JsonIgnoreProperties("{plants}")
+    @JsonIgnoreProperties({"plants"})
     private Country country;
 
     @OneToMany(mappedBy = "plant")

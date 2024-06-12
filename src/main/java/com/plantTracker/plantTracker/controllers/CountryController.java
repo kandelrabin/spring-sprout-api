@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -31,7 +32,7 @@ public class CountryController {
 
     // SHOW: GET - localhost:8080/countries/id
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Country> getCountryById(@RequestParam Long id) {
+    public ResponseEntity<Country> getCountryById(@PathVariable Long id) {
         Optional<Country> countryOptional = countryService.getCountryById(id);
         if (countryOptional.isPresent()) {
             return new ResponseEntity<>(countryOptional.get(), HttpStatus.OK);
@@ -50,14 +51,14 @@ public class CountryController {
 
     // PARTIAL UPDATE: PATCH - localhost:8080/countries/id
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Country> updateDutyPlant(@PathVariable Long id, @RequestBody Map<Optional<String>, Optional<String>> updatePayload) {
+    public ResponseEntity<Country> updateDutyPlant(@PathVariable Long id, @RequestBody Map<String, String> updatePayload) {
 
-        if (updatePayload.get("name").isPresent()) {
-            Country country = countryService.updateCountryName(id, updatePayload.get("name").get());
+        if (!Objects.isNull(updatePayload.get("name"))) {
+            Country country = countryService.updateCountryName(id, updatePayload.get("name"));
             return new ResponseEntity<>(country, HttpStatus.OK);
 
-        } else if (updatePayload.get("climate").isPresent()) {
-            Climate climate = Climate.valueOf(updatePayload.get("climate").get());
+        } else if (!Objects.isNull(updatePayload.get("climate"))) {
+            Climate climate = Climate.valueOf(updatePayload.get("climate"));
             Country country = countryService.updateCountryClimate(id, climate);
             return new ResponseEntity<>(country, HttpStatus.OK);
 
