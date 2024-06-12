@@ -26,5 +26,4 @@ public class Climbers extends Plant {
     public Climbers() {
     }
 
-
 }

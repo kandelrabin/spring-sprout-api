@@ -102,7 +102,7 @@ public class Plant {
         this.duties = duties;
     }
 
-    public int getIntervalBetweenWatering() {
+    public int getIntervalBetweenWatering() { updated plant java
         return intervalBetweenWatering;
     }
 
