@@ -28,8 +28,8 @@ public class PlantService {
     DutyRepository dutyRepository;
 
     // WATERED METHOD
-    public Plant waterPlant(){
-        Plant plant = new Plant();
+    public Plant waterPlant(long id){
+        Plant plant = plantRepository.findById(id).get();
         String currentDate = String.valueOf(new java.util.Date());
         if (plant.getLastWateredDates().contains(currentDate)){
             return null;
