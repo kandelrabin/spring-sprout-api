@@ -22,11 +22,8 @@ public class Plant {
     @Column(name = "priority")
     private Priority priority;
 
-    @Column(name = "is_watered")
-    private Boolean isWatered;
-
     @Column(name = "last_watered")
-    private String lastWatered;
+    private List<String> lastWateredDates;
 
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
@@ -37,11 +34,10 @@ public class Plant {
     @JsonIgnoreProperties({"plant"})
     private List<Duty> duties;
 
-    public Plant(String name, Priority priority, String lastWatered, Country country) {
+    public Plant(String name, Priority priority, Country country) {
         this.name = name;
         this.priority = priority;
-        this.isWatered = false;
-        this.lastWatered = lastWatered;
+        this.lastWateredDates = new ArrayList<>();
         this.country = country;
         this.duties = new ArrayList<>();
     }
@@ -73,20 +69,16 @@ public class Plant {
         this.priority = priority;
     }
 
-    public Boolean getWatered() {
-        return isWatered;
+    public List<String> getLastWateredDates() {
+        return lastWateredDates;
     }
 
-    public void setWatered(Boolean watered) {
-        isWatered = watered;
+    public void setLastWateredDates(List<String> lastWateredDates) {
+        this.lastWateredDates = lastWateredDates;
     }
 
-    public String getLastWatered() {
-        return lastWatered;
-    }
-
-    public void setLastWatered(String lastWatered) {
-        this.lastWatered = lastWatered;
+    public void addToLastWateredDates(String newDate){
+        this.lastWateredDates.add(newDate);
     }
 
     public Country getCountry() {

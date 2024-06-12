@@ -27,15 +27,27 @@ public class PlantService {
     @Autowired
     DutyRepository dutyRepository;
 
-    //    CREATE: POST - localhost:8080/plants
+    // WATERED METHOD
+    public Plant waterPlant(long id){
+        Plant plant = plantRepository.findById(id).get();
+        String currentDate = String.valueOf(new java.util.Date());
+        if (plant.getLastWateredDates().contains(currentDate)){
+            return null;
+        } else {
+            plant.addToLastWateredDates(currentDate);
+            plantRepository.save(plant);
+        }
+        return plant;
+    }
+
+    // CREATE: POST - localhost:8080/plants
     public Plant addNewPlant(PlantDTO plantDTO){
 
         String name = plantDTO.getName();
         Priority priority = Priority.valueOf(plantDTO.getPriority());
-        String lastWatered = plantDTO.getLastWatered();
         long countryId = plantDTO.getCountryId();
         Country country = countryService.getCountryById(countryId).get();
-        Plant plant = new Plant(name, priority, lastWatered, country);
+        Plant plant = new Plant(name, priority, country);
 
         plantRepository.save(plant);
 
@@ -64,9 +76,6 @@ public class PlantService {
             Priority priority = Priority.valueOf(updatePayload.get("priority"));
             plant.setPriority(priority);
 
-        } else if (!Objects.isNull(updatePayload.get("lastWatered"))) {
-            plant.setLastWatered(updatePayload.get("lastWatered"));
-
         } else if (!Objects.isNull(updatePayload.get("countryId"))){
             Long countryId = Long.parseLong(updatePayload.get("countryId"));
             Country country = countryService.getCountryById(countryId).get();
@@ -90,9 +99,6 @@ public class PlantService {
        Priority priority = Priority.valueOf(priorityStr);
        plant.setPriority(priority);
 
-       String lastWatered = plantDTO.getLastWatered();
-       plant.setLastWatered(lastWatered);
-
        Long countryId = plantDTO.getCountryId();
        Country country = countryService.getCountryById(countryId).get();
        plant.setCountry(country);
@@ -112,7 +118,6 @@ public class PlantService {
         plantRepository.deleteById(id);
 
     }
-
 
 
   }
