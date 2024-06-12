@@ -83,6 +83,13 @@ public class PlantController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    // INDEX: GET -  localhost:8080/plants/message/id
+    @GetMapping(value = "/message/{id}")
+    public ResponseEntity<String> provideInstruction(@PathVariable Long id){
+        String message = plantService.provideInstruction(id);
+        return new ResponseEntity<>(message,HttpStatus.OK);
+    }
+
 }
 
 
