@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7d1622b2-9b62-49e1-976f-dbea15bf40ea",
+		"_postman_id": "9e95667a-abb3-4d61-9c55-1a77d9f380b8",
 		"name": "api_plant_tracker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "35366757"
+		"_exporter_id": "34582280"
 	},
 	"item": [
 		{
@@ -567,6 +567,26 @@
 								"plants",
 								"1",
 								"water-plant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INDEX(ProvideInstruction)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/plants/message/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"plants",
+								"message",
+								"2"
 							]
 						}
 					},

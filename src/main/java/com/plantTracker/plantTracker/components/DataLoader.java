@@ -41,6 +41,9 @@ public class DataLoader implements ApplicationRunner {
         PlantDTO daisyDTO = new PlantDTO("Daisy", "LOW", 2,"null");
         plantService.addNewPlant(daisyDTO);
 
+        PlantDTO jasmineDTO = new PlantDTO("Jasmine", "HIGH", 2,"climbers");
+        plantService.addNewPlant(jasmineDTO);
+
         Person aaron = new Person("Aaron");
         personService.addNewPerson("aaron");
 

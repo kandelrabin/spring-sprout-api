@@ -51,10 +51,9 @@ public class Succulents extends Plant implements Flowerable {
        int minHumidity = condition.getMinHumidity();
        int maxHumidity = condition.getMaxHumidity();
 
-
        String interval =  String.valueOf(this.getIntervalBetweenWatering());
        String priority = String.valueOf(this.getPriority());
-       String message = String.format("Best condition for succulents is [Min Temperature, Max Temperature]: %d, %d ,[Min Humidity, Max Humidity]: %d, %d" +
+       String message = String.format("Best condition for succulents is [Min Temperature, Max Temperature]: %d, %d ,[Min Humidity, Max Humidity]: %d, %d." +
                " The watering interval is %s. The watering priority is %s." +
                " Watch out for the spikes.",minTemperature,maxTemperature, minHumidity, maxHumidity, interval, priority);
        return message;
