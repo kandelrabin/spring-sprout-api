@@ -4,6 +4,7 @@ import com.plantTracker.plantTracker.models.Country;
 import com.plantTracker.plantTracker.models.Interfaces.Flowerable;
 import com.plantTracker.plantTracker.models.Plant;
 import com.plantTracker.plantTracker.models.enums.Climate;
+import com.plantTracker.plantTracker.models.enums.Condition;
 import com.plantTracker.plantTracker.models.enums.Priority;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
@@ -44,12 +45,18 @@ public class Succulents extends Plant implements Flowerable {
     }
 
     public String provideInstruction(){
-       String climate = String.valueOf(Climate.DRY.getCondition());
+       Condition condition = Climate.DRY.getCondition();
+       int minTemperature = condition.getMinTemperature();
+       int maxTemperature = condition.getMaxTemperature();
+       int minHumidity = condition.getMinHumidity();
+       int maxHumidity = condition.getMaxHumidity();
+
+
        String interval =  String.valueOf(this.getIntervalBetweenWatering());
-       String priority = String.valueOf(this.priority);
-       String message = String.format("Best condition for succulents is %s." +
+       String priority = String.valueOf(this.getPriority());
+       String message = String.format("Best condition for succulents is [Min Temperature, Max Temperature]: %d, %d ,[Min Humidity, Max Humidity]: %d, %d" +
                " The watering interval is %s. The watering priority is %s." +
-               " Watch out for the spikes.",climate, interval, priority);
+               " Watch out for the spikes.",minTemperature,maxTemperature, minHumidity, maxHumidity, interval, priority);
        return message;
     }
 
