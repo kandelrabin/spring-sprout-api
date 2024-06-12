@@ -32,6 +32,7 @@ public class Succulents extends Plant implements Flowerable {
 
     public Succulents() {
     }
+
     @Override
     public Boolean getBlooming() {
         return isBlooming;

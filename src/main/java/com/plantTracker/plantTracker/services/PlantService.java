@@ -29,6 +29,15 @@ public class PlantService {
     @Autowired
     DutyRepository dutyRepository;
 
+
+    //SPECIAL CARE METHOD
+    public String provideInstruction(long id){
+        Plant plant = plantRepository.findById(id).get();
+        return plant.provideInstruction();
+    }
+
+
+
     // WATERED METHOD
     public Plant waterPlant(long id){
         Plant plant = plantRepository.findById(id).get();
@@ -51,10 +60,13 @@ public class PlantService {
         Plant plant;
         if (plantDTO.getPlantType().toLowerCase().equals("climbers")){
             plant = new Climbers(name, priority, country);
+            plant.setPlantType("climbers");
         }else if (plantDTO.getPlantType().toLowerCase().equals("succulents")){
             plant = new Succulents(name, priority, country);
+            plant.setPlantType("succulents");
         }else{
             plant = new Plant(name, priority, country);
+            plant.setPlantType("null");
         }
         plantRepository.save(plant);
         return plant;

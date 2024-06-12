@@ -1,7 +1,9 @@
 package com.plantTracker.plantTracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import com.plantTracker.plantTracker.models.enums.Climate;
 import com.plantTracker.plantTracker.models.enums.Priority;
 import jakarta.persistence.*;
 
@@ -36,6 +38,9 @@ public class Plant {
 
     @Column(name = "interval_between_watering")
     private int intervalBetweenWatering;
+
+    @JsonIgnore
+    private String plantType;
 
 
     public Plant(String name, Priority priority, Country country) {
@@ -108,5 +113,18 @@ public class Plant {
 
     public void setIntervalBetweenWatering(int intervalBetweenWatering) {
         this.intervalBetweenWatering = intervalBetweenWatering;
+    }
+
+    public String getPlantType() {
+        return plantType;
+    }
+
+    public void setPlantType(String plantType) {
+        this.plantType = plantType;
+    }
+
+    public String provideInstruction(){
+        return "Be mindful when watering";
+
     }
 }
