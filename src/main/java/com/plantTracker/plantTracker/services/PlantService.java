@@ -5,6 +5,8 @@ import com.plantTracker.plantTracker.models.Duty;
 import com.plantTracker.plantTracker.models.Plant;
 import com.plantTracker.plantTracker.models.PlantDTO;
 import com.plantTracker.plantTracker.models.enums.Priority;
+import com.plantTracker.plantTracker.models.plantChild.Climbers;
+import com.plantTracker.plantTracker.models.plantChild.Succulents;
 import com.plantTracker.plantTracker.repositories.DutyRepository;
 import com.plantTracker.plantTracker.repositories.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +44,19 @@ public class PlantService {
 
     // CREATE: POST - localhost:8080/plants
     public Plant addNewPlant(PlantDTO plantDTO){
-
         String name = plantDTO.getName();
         Priority priority = Priority.valueOf(plantDTO.getPriority());
         long countryId = plantDTO.getCountryId();
         Country country = countryService.getCountryById(countryId).get();
-        Plant plant = new Plant(name, priority, country);
-
+        Plant plant;
+        if (plantDTO.getPlantType().toLowerCase().equals("climbers")){
+            plant = new Climbers(name, priority, country);
+        }else if (plantDTO.getPlantType().toLowerCase().equals("succulents")){
+            plant = new Succulents(name, priority, country);
+        }else{
+            plant = new Plant(name, priority, country);
+        }
         plantRepository.save(plant);
-
         return plant;
     }
 

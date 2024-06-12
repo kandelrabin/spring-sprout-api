@@ -7,12 +7,14 @@ public class PlantDTO {
     private String name;
     private String priority;
     private long countryId;
+    private String plantType;
 
 
-    public PlantDTO(String name, String priority, long countryId) {
+    public PlantDTO(String name, String priority, long countryId, String plantType) {
         this.name = name;
         this.priority = priority;
         this.countryId = countryId;
+        this.plantType = plantType;
     }
 
     public PlantDTO() {
@@ -40,5 +42,13 @@ public class PlantDTO {
 
     public void setCountryId(long countryId) {
         this.countryId = countryId;
+    }
+
+    public String getPlantType() {
+        return plantType;
+    }
+
+    public void setPlantType(String plantType) {
+        this.plantType = plantType;
     }
 }
