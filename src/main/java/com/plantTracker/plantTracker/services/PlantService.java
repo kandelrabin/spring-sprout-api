@@ -34,7 +34,7 @@ public class PlantService {
         return plant.provideInstruction();
     }
 
-    // WATERED METHOD
+    // WATER PLANT METHOD (PARTIAL UPDATE): PATCH -  localhost:8080/plants/id/water-plant
     public Plant waterPlant(long id){
         Plant plant = plantRepository.findById(id).get();
         Date date = new Date();

@@ -17,18 +17,12 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Succulents extends Plant implements Flowerable {
 
-    private String name;
-    private String age;
-    private Priority priority;
-    private Country country;
-    private int intervalBetweenWatering;
     private Boolean isBlooming;
 
 
     public Succulents(String name, int age, Priority priority, Country country){
         super(name, age, priority, country);
-//        this.intervalBetweenWatering = 10;
-        this.setIntervalBetweenWatering(10);
+        this.intervalBetweenWatering = 10;
 
     }
 

@@ -35,6 +35,9 @@ public class DataLoader implements ApplicationRunner {
         CountryDTO countryDTO2 = new CountryDTO("USA","TROPICAL");
         Country usa = countryService.addNewCountry(countryDTO2);
 
+        CountryDTO countryDTO3 = new CountryDTO("Netherlands","CONTINENTAL");
+        Country netherlands = countryService.addNewCountry(countryDTO3);
+
         PlantDTO cactusDTO = new PlantDTO("Cactus", 2, "LOW", 1, "succulents");
         plantService.addNewPlant(cactusDTO);
 
@@ -44,11 +47,17 @@ public class DataLoader implements ApplicationRunner {
         PlantDTO jasmineDTO = new PlantDTO("Jasmine", 3, "HIGH", 2,"climbers");
         plantService.addNewPlant(jasmineDTO);
 
-        Person aaron = new Person("Aaron");
-        personService.addNewPerson("aaron");
+        PlantDTO roseDTO = new PlantDTO("Rose", 5, "HIGH", 2,"climbers");
+        plantService.addNewPlant(roseDTO);
 
-        Person kate = new Person( "Kate");
-        personService.addNewPerson("kate");
+        Person aaron = personService.addNewPerson("aaron");
+
+        Person kate = personService.addNewPerson("kate");
+
+        Person dena = personService.addNewPerson("dena");
+
+        Person rabin = personService.addNewPerson("rabin");
+
 
         DutyDTO monitor = new DutyDTO(1,1);
         dutyService.addNewDuty(monitor);

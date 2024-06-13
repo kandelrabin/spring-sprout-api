@@ -14,18 +14,12 @@ import jakarta.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Climbers extends Plant implements Flowerable {
 
-    private String name;
-    private String age;
-    private Priority priority;
-    private Country country;
-    private int intervalBetweenWatering;
     private Boolean isBlooming;
 
 
     public Climbers(String name, int age, Priority priority, Country country){
         super(name, age, priority, country);
-//        this.intervalBetweenWatering = 5;
-        this.setIntervalBetweenWatering(5);
+        this.intervalBetweenWatering = 5;
     }
 
     public Climbers() {

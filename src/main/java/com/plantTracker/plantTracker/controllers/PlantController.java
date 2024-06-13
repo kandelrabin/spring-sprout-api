@@ -71,7 +71,6 @@ public class PlantController {
         } else{
             return new ResponseEntity<>(null, HttpStatus.METHOD_NOT_ALLOWED);
         }
-
     }
 
     // FULL UPDATE: PUT - localhost:8080/plants/id
