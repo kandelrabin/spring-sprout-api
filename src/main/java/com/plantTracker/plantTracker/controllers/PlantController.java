@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -61,11 +62,16 @@ public class PlantController {
         return new ResponseEntity<>(plant, HttpStatus.OK);
     }
 
-    // WATER PLANT (PARTIAL UPDATE): PATCH -  localhost:8080/plants/id
+    // WATER PLANT (PARTIAL UPDATE): PATCH -  localhost:8080/plants/id/water-plant
     @PatchMapping(value = "/{id}/water-plant")
     public ResponseEntity<Plant> waterPlantUpdate(@PathVariable long id){
         Plant plant = plantService.waterPlant(id);
-        return new ResponseEntity<>(plant, HttpStatus.OK);
+        if (!Objects.isNull(plant)){
+            return new ResponseEntity<>(plant, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.METHOD_NOT_ALLOWED);
+        }
+
     }
 
     // FULL UPDATE: PUT - localhost:8080/plants/id

@@ -12,10 +12,8 @@ import com.plantTracker.plantTracker.repositories.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class PlantService {
@@ -41,7 +39,10 @@ public class PlantService {
     // WATERED METHOD
     public Plant waterPlant(long id){
         Plant plant = plantRepository.findById(id).get();
-        String currentDate = String.valueOf(new java.util.Date());
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = formatter.format(date);
+
         if (plant.getLastWateredDates().contains(currentDate)){
             return null;
         } else {
