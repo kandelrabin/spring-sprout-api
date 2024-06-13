@@ -42,8 +42,6 @@ public class Plant {
     @Column(name = "interval_between_watering")
     protected int intervalBetweenWatering;
 
-    @JsonIgnore
-    private String plantType;
 
 
     public Plant(String name, int age, Priority priority, Country country) {
@@ -125,14 +123,6 @@ public class Plant {
 
     public void setIntervalBetweenWatering(int intervalBetweenWatering) {
         this.intervalBetweenWatering = intervalBetweenWatering;
-    }
-
-    public String getPlantType() {
-        return plantType;
-    }
-
-    public void setPlantType(String plantType) {
-        this.plantType = plantType;
     }
 
     public String provideInstruction(){
