@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "9e95667a-abb3-4d61-9c55-1a77d9f380b8",
+		"_postman_id": "acd14eb1-9614-4c19-9ae4-573e390e4af0",
 		"name": "api_plant_tracker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "34582280"
+		"_exporter_id": "35366757"
 	},
 	"item": [
 		{
@@ -589,6 +589,14 @@
 								"2"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "SHOW (Plant Info)",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

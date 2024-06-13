@@ -91,9 +91,22 @@ public class PlantController {
 
     // INDEX: GET -  localhost:8080/plants/message/id
     @GetMapping(value = "/message/{id}")
-    public ResponseEntity<String> provideInstruction(@PathVariable Long id){
+    public ResponseEntity<String> provideInstruction(@PathVariable long id){
         String message = plantService.provideInstruction(id);
         return new ResponseEntity<>(message,HttpStatus.OK);
+    }
+
+    // SHOW - localhost:8080/plants/plant-info/id
+    @GetMapping(value = "/plant-info/{id}")
+    public ResponseEntity<String> plantInfo(@PathVariable long id){
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if (plantOptional.isPresent()){
+            String infoMessage = plantService.plantInformation(id);
+            return new ResponseEntity<>(infoMessage, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
     }
 
 }

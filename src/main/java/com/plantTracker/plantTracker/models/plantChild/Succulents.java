@@ -18,14 +18,15 @@ import java.util.List;
 public class Succulents extends Plant implements Flowerable {
 
     private String name;
+    private String age;
     private Priority priority;
     private Country country;
     private int intervalBetweenWatering;
     private Boolean isBlooming;
 
 
-    public Succulents(String name, Priority priority, Country country){
-        super(name, priority, country);
+    public Succulents(String name, int age, Priority priority, Country country){
+        super(name, age, priority, country);
 //        this.intervalBetweenWatering = 10;
         this.setIntervalBetweenWatering(10);
 

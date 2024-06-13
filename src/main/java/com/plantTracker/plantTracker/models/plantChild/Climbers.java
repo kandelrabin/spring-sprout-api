@@ -15,14 +15,15 @@ import jakarta.persistence.InheritanceType;
 public class Climbers extends Plant implements Flowerable {
 
     private String name;
+    private String age;
     private Priority priority;
     private Country country;
     private int intervalBetweenWatering;
     private Boolean isBlooming;
 
 
-    public Climbers(String name, Priority priority, Country country){
-        super(name, priority, country);
+    public Climbers(String name, int age, Priority priority, Country country){
+        super(name, age, priority, country);
 //        this.intervalBetweenWatering = 5;
         this.setIntervalBetweenWatering(5);
     }
