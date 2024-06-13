@@ -21,6 +21,9 @@ public class Plant {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "age")
+    private int age;
+
     @Column(name = "priority")
     private Priority priority;
 
@@ -43,8 +46,9 @@ public class Plant {
     private String plantType;
 
 
-    public Plant(String name, Priority priority, Country country) {
+    public Plant(String name, int age, Priority priority, Country country) {
         this.name = name;
+        this.age = age;
         this.priority = priority;
         this.lastWateredDates = new ArrayList<>();
         this.country = country;
@@ -69,6 +73,14 @@ public class Plant {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Priority getPriority() {
@@ -124,7 +136,7 @@ public class Plant {
     }
 
     public String provideInstruction(){
-        return "Be mindful when watering";
+        return "Be mindful when watering!";
 
     }
 }
