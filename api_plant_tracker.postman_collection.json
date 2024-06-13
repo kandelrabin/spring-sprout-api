@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "acd14eb1-9614-4c19-9ae4-573e390e4af0",
+		"_postman_id": "d8b36e91-25ff-4883-9324-d4fdfaef361a",
 		"name": "api_plant_tracker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "35366757"
+		"_exporter_id": "34582280"
 	},
 	"item": [
 		{
@@ -596,7 +596,30 @@
 					"name": "SHOW (Plant Info)",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SHOW(getCountdown)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/plants/countdown/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"plants",
+								"countdown",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}

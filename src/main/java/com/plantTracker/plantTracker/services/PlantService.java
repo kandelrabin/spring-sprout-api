@@ -12,8 +12,10 @@ import com.plantTracker.plantTracker.repositories.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class PlantService {
@@ -49,6 +51,33 @@ public class PlantService {
         }
         return plant;
     }
+
+    public String getCountdownTime(long id) throws Exception{
+        Plant plant = plantRepository.findById(id).get();
+        DateFormat formatter = new SimpleDateFormat( "dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+
+        long  diff_milliseconds;
+
+        if (!plant.getLastWateredDates().isEmpty()){
+            Date lastWateredDate = formatter.parse(plant.getLastWateredDates().get(plant.getLastWateredDates().size()-1));
+
+            calendar.setTime(lastWateredDate);
+
+            calendar.add(Calendar.DATE, plant.getIntervalBetweenWatering());
+
+            Date nextWaterDate = calendar.getTime();
+
+            diff_milliseconds = nextWaterDate.getTime()-lastWateredDate.getTime();
+            long diff_days = TimeUnit.MILLISECONDS.toDays(diff_milliseconds);
+
+            return String.valueOf(diff_days);
+        } else {
+            return "";
+        }
+
+    }
+
 
     // PROVIDE PLANT INFORMATION
     public String plantInformation(long id){
