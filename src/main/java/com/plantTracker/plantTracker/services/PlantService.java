@@ -56,11 +56,17 @@ public class PlantService {
 
         String name = plant.getName();
         int age = plant.getAge();
-        String lastWateredDate = plant.getLastWateredDates().get(plant.getLastWateredDates().size()-1);
-        String country = String.valueOf(plant.getCountry());
+        String lastWateredDate;
+        if (!plant.getLastWateredDates().isEmpty()){
+            lastWateredDate = plant.getLastWateredDates().get(plant.getLastWateredDates().size()-1);
+        } else {
+            lastWateredDate = "";
+        }
+        String country = String.valueOf(plant.getCountry().getName());
 
-        String infoMessage = String.format("This %s is %d year(s) old and it originates from %s." +
-                "It was last watered on %s. See care instructions for how to look after this!", name, age, country, lastWateredDate);
+        String dateMessage = (lastWateredDate.isEmpty()) ? "It has never been watered." : String.format("It was last watered on %s.", lastWateredDate);
+
+        String infoMessage = String.format("This %s is %d year(s) old and it originates from %s. %s See care instructions for how to look after this!", name, age, country, dateMessage);
 
         return infoMessage;
     }
