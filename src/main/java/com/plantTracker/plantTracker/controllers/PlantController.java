@@ -108,6 +108,20 @@ public class PlantController {
 
     }
 
+//countdown method localhost:8080/plants/countdown/id
+
+    @GetMapping("/countdown/{id}")
+    public ResponseEntity<String> getCountdownDays(@PathVariable long id) throws Exception {
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            String countdown = plantService.getCountdownTime(id);
+            return new ResponseEntity<>(countdown, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+        }
+    }
+
 }
 
 
