@@ -81,13 +81,10 @@ public class PlantService {
         Plant plant;
         if (plantDTO.getPlantType().equalsIgnoreCase("climbers")){
             plant = new Climbers(name, age, priority, country);
-            plant.setPlantType("climbers");
         }else if (plantDTO.getPlantType().equalsIgnoreCase("succulents")){
             plant = new Succulents(name, age, priority, country);
-            plant.setPlantType("succulents");
         }else{
             plant = new Plant(name, age, priority, country);
-            plant.setPlantType("null");
         }
         plantRepository.save(plant);
         return plant;
