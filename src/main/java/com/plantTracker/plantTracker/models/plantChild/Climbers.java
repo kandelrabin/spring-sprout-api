@@ -1,7 +1,7 @@
 package com.plantTracker.plantTracker.models.plantChild;
 
 import com.plantTracker.plantTracker.models.Country;
-import com.plantTracker.plantTracker.models.Interfaces.Flowerable;
+import com.plantTracker.plantTracker.models.Interfaces.Iinstruction;
 import com.plantTracker.plantTracker.models.Plant;
 import com.plantTracker.plantTracker.models.enums.Climate;
 import com.plantTracker.plantTracker.models.enums.Condition;
@@ -12,9 +12,7 @@ import jakarta.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Climbers extends Plant implements Flowerable {
-
-    private Boolean isBlooming;
+public class Climbers extends Plant implements Iinstruction {
 
 
     public Climbers(String name, int age, Priority priority, Country country){
@@ -23,16 +21,6 @@ public class Climbers extends Plant implements Flowerable {
     }
 
     public Climbers() {
-    }
-
-    @Override
-    public Boolean getBlooming() {
-        return isBlooming;
-    }
-
-    @Override
-    public void setBlooming(Boolean isBlooming) {
-        this.isBlooming = isBlooming;
     }
 
     public String provideInstruction(){
