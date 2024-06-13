@@ -40,7 +40,7 @@ public class Plant {
     private List<Duty> duties;
 
     @Column(name = "interval_between_watering")
-    private int intervalBetweenWatering;
+    protected int intervalBetweenWatering;
 
     @JsonIgnore
     private String plantType;

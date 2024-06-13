@@ -42,7 +42,12 @@ public class DutyController {
     @PostMapping
     public ResponseEntity<Duty> addNewDuty(@RequestBody DutyDTO dutyDTO){
         Duty duty = dutyService.addNewDuty(dutyDTO);
-        return new ResponseEntity<>(duty, HttpStatus.CREATED);
+        if (Objects.isNull(duty)){
+            return new ResponseEntity<>(null, HttpStatus.METHOD_NOT_ALLOWED);
+        } else {
+            return new ResponseEntity<>(duty, HttpStatus.CREATED);
+        }
+
     }
 
 

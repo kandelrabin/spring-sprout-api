@@ -27,13 +27,27 @@ public class DutyService {
     public Duty addNewDuty(DutyDTO dutyDTO){
         long plantId = dutyDTO.getPlantId();
         long personId = dutyDTO.getPersonId();
+        Duty duty;
+        // check if a row for plant id or person id already exist in the duties table
+        if (!(personExists(personId)||plantExists(plantId))){
+            Plant plant = plantService.getPlantById(plantId).get();
+            Person person = personService.getPersonById(personId).get();
+            duty = new Duty(plant, person);
+            dutyRepository.save(duty);
+            return duty;
+        } else {
+            return null;
+        }
+    }
 
-        Plant plant = plantService.getPlantById(plantId).get();
-        Person person = personService.getPersonById(personId).get();
-        Duty duty = new Duty(plant, person);
+    public boolean personExists(long id){
+        List<Duty> duties = dutyRepository.findAllByPersonId(id);
+        return !duties.isEmpty();
+    }
 
-        dutyRepository.save(duty);
-        return duty;
+    public boolean plantExists(long id){
+        List<Duty> duties = dutyRepository.findAllByPlantId(id);
+        return !duties.isEmpty();
     }
 
     //  todo: INDEX
