@@ -20,7 +20,7 @@ Create a Plant Tracker app, that will allow us to track when plants need to be w
 
 ## Setup instructions
 
-1. install Postgres (via homebrew or [Postgresapp](www.postgresapp.com).
+1. install Postgres (via homebrew or [Postgresapp](www.postgresapp.com)).
 2. create a database createdb `planttracker_db` in Terminal.
 3. Install Java.
 4. clone this [project](https://github.com/kandelrabin/plant_tracker_backend) to your computer and run main() in `PlantTrackerApplication`.
