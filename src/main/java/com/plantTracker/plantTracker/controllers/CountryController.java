@@ -2,8 +2,6 @@ package com.plantTracker.plantTracker.controllers;
 
 import com.plantTracker.plantTracker.models.Country;
 import com.plantTracker.plantTracker.models.CountryDTO;
-import com.plantTracker.plantTracker.models.Duty;
-import com.plantTracker.plantTracker.models.DutyDTO;
 import com.plantTracker.plantTracker.models.enums.Climate;
 import com.plantTracker.plantTracker.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +21,12 @@ public class CountryController {
     @Autowired
     CountryService countryService;
 
-    // INDEX: GET localhost:8080/countries
     @GetMapping
     public ResponseEntity<List<Country>> getAllCountries() {
         List<Country> countries = countryService.getAllCountries();
         return new ResponseEntity<>(countries, HttpStatus.OK);
     }
 
-    // SHOW: GET - localhost:8080/countries/id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Country> getCountryById(@PathVariable Long id) {
         Optional<Country> countryOptional = countryService.getCountryById(id);
@@ -41,15 +37,12 @@ public class CountryController {
         }
     }
 
-
-    // CREATE: POST localhost:8080/countries
     @PostMapping
     public ResponseEntity<Country> addNewCountry(@RequestBody CountryDTO countryDTO) {
         Country country = countryService.addNewCountry(countryDTO);
         return new ResponseEntity<>(country, HttpStatus.CREATED);
     }
 
-    // PARTIAL UPDATE: PATCH - localhost:8080/countries/id
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Country> updateDutyPlant(@PathVariable Long id, @RequestBody Map<String, String> updatePayload) {
 
@@ -68,14 +61,12 @@ public class CountryController {
 
     }
 
-    // FULL UPDATE: PUT - localhost:8080/countries/id
     @PutMapping(value = "/{id}")    // ADDED
     public ResponseEntity<Country> fullUpdateCountry(@RequestBody CountryDTO countryDTO, @PathVariable Long id){
         Country country = countryService.fullUpdateCountry(countryDTO, id);
         return new ResponseEntity<>(country, HttpStatus.OK);
     }
 
-    // DELETE: DELETE - localhost:8080/countries/id
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteCountry(@PathVariable Long id){
         Optional<Country> countryOptional = countryService.getCountryById(id);

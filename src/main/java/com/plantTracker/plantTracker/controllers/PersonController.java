@@ -2,7 +2,6 @@ package com.plantTracker.plantTracker.controllers;
 
 import com.plantTracker.plantTracker.models.Person;
 import com.plantTracker.plantTracker.services.PersonService;
-import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
-    //    CREATE: POST - localhost:8080/people
+
     @PostMapping
     public ResponseEntity<Person> addNewPerson(@RequestBody Map<String, String> personPayload){
         if (!personPayload.get("name").isBlank()){
@@ -31,7 +30,6 @@ public class PersonController {
         }
     }
 
-    //    SHOW: GET - localhost:8080/people/id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable Long id){
         Optional<Person> personOptional = personService.getPersonById(id);
@@ -42,14 +40,12 @@ public class PersonController {
         }
     }
 
-    //    INDEX: GET - localhost:8080/people
     @GetMapping
     public ResponseEntity<List<Person>> getAllPeople(){
         List<Person> people = personService.getAllPeople();
         return new ResponseEntity<>(people, HttpStatus.OK);
     }
 
-    //    FULL/PARTIAL UPDATE: PUT - localhost:8080/people/id
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Map<String, String> updatePayLoad){
         if (!updatePayLoad.get("name").isBlank()){
@@ -61,7 +57,6 @@ public class PersonController {
         }
     }
 
-    //    DELETE: DELETE - localhost:8080/people/id
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletePerson(@PathVariable Long id){
         personService.deletePerson(id);
