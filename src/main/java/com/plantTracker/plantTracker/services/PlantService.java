@@ -30,13 +30,11 @@ public class PlantService {
     DutyRepository dutyRepository;
 
 
-    //SPECIAL CARE METHOD
     public String provideInstruction(long id){
         Plant plant = plantRepository.findById(id).get();
         return plant.provideInstruction();
     }
 
-    // WATER PLANT METHOD (PARTIAL UPDATE): PATCH -  localhost:8080/plants/id/water-plant
     public Plant waterPlant(long id){
         Plant plant = plantRepository.findById(id).get();
         Date date = new Date();
@@ -75,11 +73,8 @@ public class PlantService {
         } else {
             return "";
         }
-
     }
 
-
-    // PROVIDE PLANT INFORMATION
     public String plantInformation(long id){
         Plant plant = plantRepository.findById(id).get();
 
@@ -100,7 +95,6 @@ public class PlantService {
         return infoMessage;
     }
 
-    // CREATE: POST - localhost:8080/plants
     public Plant addNewPlant(PlantDTO plantDTO){
         String name = plantDTO.getName();
         int age = plantDTO.getAge();
@@ -119,18 +113,15 @@ public class PlantService {
         return plant;
     }
 
-    //    SHOW: GET - localhost:8080/plants/id
     public Optional<Plant> getPlantById(long id){
         return plantRepository.findById(id);
     }
 
-    //    INDEX: GET - localhost:8080/plants
+
     public List<Plant> getAllPlants(){
         return plantRepository.findAll();
     }
 
-//    PARTIAL UPDATE: PATCH - localhost:8080/plants/id
-// to update one variable at once
     public Plant updatePlantPartial(long id, Map< String, String> updatePayload){
         Plant plant = plantRepository.findById(id).get();
 
@@ -156,7 +147,6 @@ public class PlantService {
         return plant;
     }
 
-//    FULL UPDATE: PUT - localhost:8080/plants/id
     public Plant updatePlantFull(Long id, PlantDTO plantDTO){
        Plant plant = plantRepository.findById(id).get();
 
@@ -177,10 +167,8 @@ public class PlantService {
        plantRepository.save(plant);
 
        return plant;
-
     }
 
-//    DELETE: DELETE - localhost:8080/plants/id
     public void deletePlant(long id){
         Plant plant = getPlantById(id).get();
         for (Duty duty : plant.getDuties()){

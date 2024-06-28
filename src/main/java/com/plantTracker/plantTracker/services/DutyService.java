@@ -23,12 +23,12 @@ public class DutyService {
     @Autowired
     PersonService personService;
 
-    // CREATE
     public Duty addNewDuty(DutyDTO dutyDTO){
         long plantId = dutyDTO.getPlantId();
         long personId = dutyDTO.getPersonId();
         Duty duty;
-        // check if a row for plant id or person id already exist in the duties table
+
+        // Checks if a row for plant id or person id already exist in the duties table.
         if (!(personExists(personId)||plantExists(plantId))){
             Plant plant = plantService.getPlantById(plantId).get();
             Person person = personService.getPersonById(personId).get();
@@ -50,27 +50,25 @@ public class DutyService {
         return !duties.isEmpty();
     }
 
-    //  todo: INDEX
     public List<Duty> getAllDuties(){
         return dutyRepository.findAll();
     }
 
-    // todo: SHOW
     public Optional<Duty> getDutyById(long id){
         return dutyRepository.findById(id);
     }
 
-    // todo: partial UPDATE for plant only
-    // assume: plant is created before updating
+
     public Duty updateDutyPlant(long id, long plantId){
+        // Assumption: Plant with plantId exists in plants table in database.
         Plant plant = plantService.getPlantById(plantId).get();
+
         Duty duty = dutyRepository.findById(id).get();
         duty.setPlant(plant);
         dutyRepository.save(duty);
         return duty;
     }
 
-    // todo: partial UPDATE for person only
     public Duty updateDutyPerson(long dutyId, long personId){
         Person person = personService.getPersonById(personId).get();
         Duty duty = dutyRepository.findById(dutyId).get();
@@ -79,7 +77,6 @@ public class DutyService {
         return duty;
     }
 
-    // todo: full update
     public Duty updateDutyFull(long dutyId, long plantId, long personId){
         Plant plant = plantService.getPlantById(plantId).get();
         Person person = personService.getPersonById(personId).get();
@@ -90,8 +87,6 @@ public class DutyService {
         return duty;
     }
 
-
-    // todo: DELETE
     public void deleteDuty(long id){
         dutyRepository.deleteById(id);
     }

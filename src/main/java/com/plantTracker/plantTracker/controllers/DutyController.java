@@ -20,14 +20,12 @@ public class DutyController {
     @Autowired
     DutyService dutyService;
 
-//    INDEX: GET - localhost:8080/duties
     @GetMapping
     public ResponseEntity<List<Duty>> getAllDuties(){
         List<Duty> duties = dutyService.getAllDuties();
         return new ResponseEntity<>(duties, HttpStatus.OK);
     }
 
-//    SHOW: GET - localhost:8080/duties/id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Duty> getDutyById(@PathVariable Long id){
         Optional<Duty> dutyOptional = dutyService.getDutyById(id);
@@ -38,7 +36,6 @@ public class DutyController {
         }
     }
 
-//    CREATE: POST - localhost:8080/duties
     @PostMapping
     public ResponseEntity<Duty> addNewDuty(@RequestBody DutyDTO dutyDTO){
         Duty duty = dutyService.addNewDuty(dutyDTO);
@@ -50,8 +47,6 @@ public class DutyController {
 
     }
 
-
-//    PARTIAL UPDATE: PATCH - localhost:8080/duties/id
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Duty> updateDutyPlant(@PathVariable Long id, @RequestBody Map<String, Long> plantOrPersonPayload){
 
@@ -72,8 +67,6 @@ public class DutyController {
 
     }
 
-
-//    FULL UPDATE: PUT - localhost:8080/duties/id
     @PutMapping(value = "/{id}")
     public ResponseEntity<Duty> updateDutyFull(@PathVariable Long id, @RequestBody Map<String, Long> plantPersonPayload){
         Long plantId = plantPersonPayload.get("plantId");
@@ -82,7 +75,6 @@ public class DutyController {
         return new ResponseEntity<>(duty, HttpStatus.OK);
     }
 
-//    DELETE: DELETE - localhost:8080/duties/id
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteDuty(@PathVariable Long id){
         Optional<Duty> dutyOptional = dutyService.getDutyById(id);
