@@ -24,9 +24,9 @@ public class PersonController {
         if (!personPayload.get("name").isBlank()){
             String name = personPayload.get("name");
             Person person = personService.addNewPerson(name);
-            return new ResponseEntity<>(person, HttpStatus.OK);
+            return new ResponseEntity<>(person, HttpStatus.CREATED);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -53,14 +53,19 @@ public class PersonController {
             Person person = personService.updatePerson(id, name);
             return new ResponseEntity<>(person, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletePerson(@PathVariable Long id){
-        personService.deletePerson(id);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        Optional<Person> personOptional = personService.getPersonById(id);
+        if (personOptional.isPresent()){
+            personService.deletePerson(id);
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
 

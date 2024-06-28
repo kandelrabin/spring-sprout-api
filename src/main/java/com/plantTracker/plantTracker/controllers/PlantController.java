@@ -48,9 +48,14 @@ public class PlantController {
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Plant> updatePlantPartial(@PathVariable Long id, @RequestBody Map<String, String> updatePayload){
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            Plant plant = plantService.updatePlantPartial(id, updatePayload);
+            return new ResponseEntity<>(plant, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
 
-        Plant plant = plantService.updatePlantPartial(id, updatePayload);
-        return new ResponseEntity<>(plant, HttpStatus.OK);
     }
 
     @PatchMapping(value = "/{id}/water-plant")
@@ -59,27 +64,41 @@ public class PlantController {
         if (!Objects.isNull(plant)){
             return new ResponseEntity<>(plant, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.METHOD_NOT_ALLOWED);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Plant> updatePlantFull(@PathVariable Long id, @RequestBody PlantDTO plantDTO){
-        Plant plant = plantService.updatePlantFull(id, plantDTO);
-        return new ResponseEntity<>(plant, HttpStatus.OK);
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            Plant plant = plantService.updatePlantFull(id, plantDTO);
+            return new ResponseEntity<>(plant, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletePlant(@PathVariable Long id){
-        plantService.deletePlant(id);
-
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            plantService.deletePlant(id);
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "/message/{id}")
     public ResponseEntity<String> provideInstruction(@PathVariable long id){
-        String message = plantService.provideInstruction(id);
-        return new ResponseEntity<>(message,HttpStatus.OK);
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            String message = plantService.provideInstruction(id);
+            return new ResponseEntity<>(message,HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "/plant-info/{id}")
@@ -91,7 +110,6 @@ public class PlantController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-
     }
 
     @GetMapping("/countdown/{id}")
@@ -102,7 +120,6 @@ public class PlantController {
             return new ResponseEntity<>(countdown, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
         }
     }
 
