@@ -1,8 +1,6 @@
 package com.plantTracker.plantTracker.controllers;
 
-import com.plantTracker.plantTracker.models.Plant;
-import com.plantTracker.plantTracker.models.PlantDTO;
-import com.plantTracker.plantTracker.models.PlantInformationDTO;
+import com.plantTracker.plantTracker.models.*;
 import com.plantTracker.plantTracker.services.CountryService;
 import com.plantTracker.plantTracker.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,11 +90,12 @@ public class PlantController {
     }
 
     @GetMapping(value = "/message/{id}")
-    public ResponseEntity<String> provideInstruction(@PathVariable long id){
+    public ResponseEntity<InstructionDTO> provideInstruction(@PathVariable long id){
         Optional<Plant> plantOptional = plantService.getPlantById(id);
         if(plantOptional.isPresent()){
             String message = plantService.provideInstruction(id);
-            return new ResponseEntity<>(message,HttpStatus.OK);
+            InstructionDTO instructionDTO = new InstructionDTO(id,message);
+            return new ResponseEntity<>(instructionDTO,HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -116,11 +115,12 @@ public class PlantController {
     }
 
     @GetMapping("/countdown/{id}")
-    public ResponseEntity<String> getCountdownDays(@PathVariable long id) throws Exception {
+    public ResponseEntity<CountdownDTO> getCountdownDays(@PathVariable long id) throws Exception {
         Optional<Plant> plantOptional = plantService.getPlantById(id);
         if(plantOptional.isPresent()){
             String countdown = plantService.getCountdownTime(id);
-            return new ResponseEntity<>(countdown, HttpStatus.OK);
+            CountdownDTO countdownDTO = new CountdownDTO(id,countdown);
+            return new ResponseEntity<>(countdownDTO, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
