@@ -1,5 +1,6 @@
 package com.plantTracker.plantTracker.controllers;
 
+import com.plantTracker.plantTracker.models.InstructionDTO;
 import com.plantTracker.plantTracker.models.Plant;
 import com.plantTracker.plantTracker.models.PlantDTO;
 import com.plantTracker.plantTracker.models.PlantInformationDTO;
@@ -92,11 +93,12 @@ public class PlantController {
     }
 
     @GetMapping(value = "/message/{id}")
-    public ResponseEntity<String> provideInstruction(@PathVariable long id){
+    public ResponseEntity<InstructionDTO> provideInstruction(@PathVariable long id){
         Optional<Plant> plantOptional = plantService.getPlantById(id);
         if(plantOptional.isPresent()){
             String message = plantService.provideInstruction(id);
-            return new ResponseEntity<>(message,HttpStatus.OK);
+            InstructionDTO instructionDTO = new InstructionDTO(id,message);
+            return new ResponseEntity<>(instructionDTO,HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
