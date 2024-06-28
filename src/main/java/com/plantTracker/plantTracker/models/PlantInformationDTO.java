@@ -2,12 +2,12 @@ package com.plantTracker.plantTracker.models;
 
 public class PlantInformationDTO {
 
-    private long plantId;
+    private long id;
     private String plantInfo;
 
 
-    public PlantInformationDTO(long plantId, String plantInfo){
-        this.plantId = plantId;
+    public PlantInformationDTO(long id, String plantInfo){
+        this.id = id;
         this.plantInfo = plantInfo;
     }
 
@@ -15,11 +15,11 @@ public class PlantInformationDTO {
     }
 
     public long getPlantId() {
-        return plantId;
+        return id;
     }
 
-    public void setPlantId(long plantId) {
-        this.plantId = plantId;
+    public void setPlantId(long id) {
+        this.id = id;
     }
 
     public String getPlantInfo() {

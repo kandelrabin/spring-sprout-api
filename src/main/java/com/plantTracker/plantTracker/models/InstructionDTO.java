@@ -2,11 +2,11 @@ package com.plantTracker.plantTracker.models;
 
 public class InstructionDTO {
 
-    private Long plantId;
+    private Long id;
     private String instruction;
 
-    public InstructionDTO(Long plantId, String instruction) {
-        this.plantId = plantId;
+    public InstructionDTO(Long id, String instruction) {
+        this.id = id;
         this.instruction = instruction;
     }
 
@@ -14,11 +14,11 @@ public class InstructionDTO {
     }
 
     public Long getPlantId() {
-        return plantId;
+        return id;
     }
 
-    public void setPlantId(Long plantId) {
-        this.plantId = plantId;
+    public void setPlantId(Long id) {
+        this.id = id;
     }
 
     public String getInstruction() {

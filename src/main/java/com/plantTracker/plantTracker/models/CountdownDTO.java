@@ -2,23 +2,23 @@ package com.plantTracker.plantTracker.models;
 
 public class CountdownDTO {
 
-    private Long plantId;
+    private Long id;
     private String countdown;
 
-    public CountdownDTO( Long plantId,String countdown) {
+    public CountdownDTO( Long id,String countdown) {
         this.countdown = countdown;
-        this.plantId = plantId;
+        this.id = id;
     }
 
     public CountdownDTO() {
     }
 
     public Long getPlantId() {
-        return plantId;
+        return id;
     }
 
-    public void setPlantId(Long plantId) {
-        this.plantId = plantId;
+    public void setPlantId(Long id) {
+        this.id = id;
     }
 
     public String getCountdown() {
