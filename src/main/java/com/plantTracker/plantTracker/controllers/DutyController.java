@@ -1,5 +1,6 @@
 package com.plantTracker.plantTracker.controllers;
 
+import com.plantTracker.plantTracker.models.Country;
 import com.plantTracker.plantTracker.models.Duty;
 import com.plantTracker.plantTracker.models.DutyDTO;
 import com.plantTracker.plantTracker.services.DutyService;
@@ -40,7 +41,7 @@ public class DutyController {
     public ResponseEntity<Duty> addNewDuty(@RequestBody DutyDTO dutyDTO){
         Duty duty = dutyService.addNewDuty(dutyDTO);
         if (Objects.isNull(duty)){
-            return new ResponseEntity<>(null, HttpStatus.METHOD_NOT_ALLOWED);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>(duty, HttpStatus.CREATED);
         }
@@ -49,31 +50,42 @@ public class DutyController {
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Duty> updateDutyPlant(@PathVariable Long id, @RequestBody Map<String, Long> plantOrPersonPayload){
+        Optional<Duty> dutyOptional = dutyService.getDutyById(id);
+        if(dutyOptional.isPresent()){
+            if (!Objects.isNull(plantOrPersonPayload.get("plantId"))){
+                Long plantId = plantOrPersonPayload.get("plantId");
+                Duty duty = dutyService.updateDutyPlant(id, plantId);
+                return new ResponseEntity<>(duty, HttpStatus.OK);
 
-        if (!Objects.isNull(plantOrPersonPayload.get("plantId"))){
-            Long plantId = plantOrPersonPayload.get("plantId");
-            Duty duty = dutyService.updateDutyPlant(id, plantId);
-            return new ResponseEntity<>(duty, HttpStatus.OK);
+            } else if (!Objects.isNull(plantOrPersonPayload.get("personId"))) {
+                Long personId = plantOrPersonPayload.get("personId");
+                Duty duty = dutyService.updateDutyPerson(id, personId);
+                return new ResponseEntity<>(duty, HttpStatus.OK);
 
-        } else if (!Objects.isNull(plantOrPersonPayload.get("personId"))) {
-            Long personId = plantOrPersonPayload.get("personId");
-            Duty duty = dutyService.updateDutyPerson(id, personId);
-            return new ResponseEntity<>(duty, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
 
         } else {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-
 
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Duty> updateDutyFull(@PathVariable Long id, @RequestBody Map<String, Long> plantPersonPayload){
-        Long plantId = plantPersonPayload.get("plantId");
-        Long personId = plantPersonPayload.get("personId");
-        Duty duty = dutyService.updateDutyFull(id, plantId, personId);
-        return new ResponseEntity<>(duty, HttpStatus.OK);
+    public ResponseEntity<Duty> updateDutyFull(@PathVariable Long id, @RequestBody DutyDTO dutyDTO ){
+        Optional<Duty> dutyOptional = dutyService.getDutyById(id);
+        if(dutyOptional.isPresent()){
+            Long plantId = dutyDTO.getPlantId();
+            Long personId = dutyDTO.getPersonId();
+            Duty duty = dutyService.updateDutyFull(id, plantId, personId);
+            return new ResponseEntity<>(duty, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
+
+
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteDuty(@PathVariable Long id){
