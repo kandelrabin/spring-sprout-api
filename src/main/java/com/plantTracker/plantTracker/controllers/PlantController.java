@@ -1,9 +1,6 @@
 package com.plantTracker.plantTracker.controllers;
 
-import com.plantTracker.plantTracker.models.InstructionDTO;
-import com.plantTracker.plantTracker.models.Plant;
-import com.plantTracker.plantTracker.models.PlantDTO;
-import com.plantTracker.plantTracker.models.PlantInformationDTO;
+import com.plantTracker.plantTracker.models.*;
 import com.plantTracker.plantTracker.services.CountryService;
 import com.plantTracker.plantTracker.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,11 +115,12 @@ public class PlantController {
     }
 
     @GetMapping("/countdown/{id}")
-    public ResponseEntity<String> getCountdownDays(@PathVariable long id) throws Exception {
+    public ResponseEntity<CountdownDTO> getCountdownDays(@PathVariable long id) throws Exception {
         Optional<Plant> plantOptional = plantService.getPlantById(id);
         if(plantOptional.isPresent()){
             String countdown = plantService.getCountdownTime(id);
-            return new ResponseEntity<>(countdown, HttpStatus.OK);
+            CountdownDTO countdownDTO = new CountdownDTO(id,countdown);
+            return new ResponseEntity<>(countdownDTO, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
