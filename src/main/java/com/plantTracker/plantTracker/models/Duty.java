@@ -3,7 +3,6 @@ package com.plantTracker.plantTracker.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.*;
 
 @Entity
 @Table(name = "duties")

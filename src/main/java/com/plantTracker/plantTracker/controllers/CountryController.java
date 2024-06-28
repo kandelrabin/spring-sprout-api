@@ -2,8 +2,6 @@ package com.plantTracker.plantTracker.controllers;
 
 import com.plantTracker.plantTracker.models.Country;
 import com.plantTracker.plantTracker.models.CountryDTO;
-import com.plantTracker.plantTracker.models.Duty;
-import com.plantTracker.plantTracker.models.DutyDTO;
 import com.plantTracker.plantTracker.models.enums.Climate;
 import com.plantTracker.plantTracker.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;

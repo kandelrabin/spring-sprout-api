@@ -1,17 +1,13 @@
 package com.plantTracker.plantTracker.controllers;
 
-import com.plantTracker.plantTracker.PlantTrackerApplication;
-import com.plantTracker.plantTracker.models.Country;
 import com.plantTracker.plantTracker.models.Plant;
 import com.plantTracker.plantTracker.models.PlantDTO;
-import com.plantTracker.plantTracker.models.enums.Priority;
 import com.plantTracker.plantTracker.services.CountryService;
 import com.plantTracker.plantTracker.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;

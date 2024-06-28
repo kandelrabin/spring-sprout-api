@@ -2,7 +2,6 @@ package com.plantTracker.plantTracker.controllers;
 
 import com.plantTracker.plantTracker.models.Person;
 import com.plantTracker.plantTracker.services.PersonService;
-import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

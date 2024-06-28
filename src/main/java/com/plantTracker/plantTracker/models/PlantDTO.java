@@ -1,7 +1,5 @@
 package com.plantTracker.plantTracker.models;
 
-import com.plantTracker.plantTracker.models.enums.Priority;
-
 public class PlantDTO {
 
     private String name;
