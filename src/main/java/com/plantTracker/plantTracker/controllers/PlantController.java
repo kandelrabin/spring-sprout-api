@@ -2,6 +2,7 @@ package com.plantTracker.plantTracker.controllers;
 
 import com.plantTracker.plantTracker.models.Plant;
 import com.plantTracker.plantTracker.models.PlantDTO;
+import com.plantTracker.plantTracker.models.PlantInformationDTO;
 import com.plantTracker.plantTracker.services.CountryService;
 import com.plantTracker.plantTracker.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,11 +103,13 @@ public class PlantController {
     }
 
     @GetMapping(value = "/plant-info/{id}")
-    public ResponseEntity<String> plantInfo(@PathVariable long id){
+    public ResponseEntity<PlantInformationDTO> plantInfo(@PathVariable long id){
         Optional<Plant> plantOptional = plantService.getPlantById(id);
         if (plantOptional.isPresent()){
+
             String infoMessage = plantService.plantInformation(id);
-            return new ResponseEntity<>(infoMessage, HttpStatus.OK);
+            PlantInformationDTO plantInformationDTO = new PlantInformationDTO(id,infoMessage);
+            return new ResponseEntity<>(plantInformationDTO, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
