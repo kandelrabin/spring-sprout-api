@@ -1,7 +1,6 @@
 package com.plantTracker.plantTracker.controllers;
 
-import com.plantTracker.plantTracker.models.Plant;
-import com.plantTracker.plantTracker.models.PlantDTO;
+import com.plantTracker.plantTracker.models.*;
 import com.plantTracker.plantTracker.services.CountryService;
 import com.plantTracker.plantTracker.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +47,14 @@ public class PlantController {
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Plant> updatePlantPartial(@PathVariable Long id, @RequestBody Map<String, String> updatePayload){
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            Plant plant = plantService.updatePlantPartial(id, updatePayload);
+            return new ResponseEntity<>(plant, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
 
-        Plant plant = plantService.updatePlantPartial(id, updatePayload);
-        return new ResponseEntity<>(plant, HttpStatus.OK);
     }
 
     @PatchMapping(value = "/{id}/water-plant")
@@ -59,50 +63,66 @@ public class PlantController {
         if (!Objects.isNull(plant)){
             return new ResponseEntity<>(plant, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.METHOD_NOT_ALLOWED);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Plant> updatePlantFull(@PathVariable Long id, @RequestBody PlantDTO plantDTO){
-        Plant plant = plantService.updatePlantFull(id, plantDTO);
-        return new ResponseEntity<>(plant, HttpStatus.OK);
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            Plant plant = plantService.updatePlantFull(id, plantDTO);
+            return new ResponseEntity<>(plant, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletePlant(@PathVariable Long id){
-        plantService.deletePlant(id);
-
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            plantService.deletePlant(id);
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "/message/{id}")
-    public ResponseEntity<String> provideInstruction(@PathVariable long id){
-        String message = plantService.provideInstruction(id);
-        return new ResponseEntity<>(message,HttpStatus.OK);
+    public ResponseEntity<InstructionDTO> provideInstruction(@PathVariable long id){
+        Optional<Plant> plantOptional = plantService.getPlantById(id);
+        if(plantOptional.isPresent()){
+            String message = plantService.provideInstruction(id);
+            InstructionDTO instructionDTO = new InstructionDTO(id,message);
+            return new ResponseEntity<>(instructionDTO,HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "/plant-info/{id}")
-    public ResponseEntity<String> plantInfo(@PathVariable long id){
+    public ResponseEntity<PlantInformationDTO> plantInfo(@PathVariable long id){
         Optional<Plant> plantOptional = plantService.getPlantById(id);
         if (plantOptional.isPresent()){
+
             String infoMessage = plantService.plantInformation(id);
-            return new ResponseEntity<>(infoMessage, HttpStatus.OK);
+            PlantInformationDTO plantInformationDTO = new PlantInformationDTO(id,infoMessage);
+            return new ResponseEntity<>(plantInformationDTO, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-
     }
 
     @GetMapping("/countdown/{id}")
-    public ResponseEntity<String> getCountdownDays(@PathVariable long id) throws Exception {
+    public ResponseEntity<CountdownDTO> getCountdownDays(@PathVariable long id) throws Exception {
         Optional<Plant> plantOptional = plantService.getPlantById(id);
         if(plantOptional.isPresent()){
             String countdown = plantService.getCountdownTime(id);
-            return new ResponseEntity<>(countdown, HttpStatus.OK);
+            CountdownDTO countdownDTO = new CountdownDTO(id,countdown);
+            return new ResponseEntity<>(countdownDTO, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
         }
     }
 
