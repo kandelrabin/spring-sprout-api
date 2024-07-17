@@ -168,3 +168,15 @@ Create a Plant Tracker app, that will allow us to track when plants need to be w
 > 
 > 	* `findAllByPersonId(Long): List<Duty>` 
 > 	* `findAllByPlantId(Long): List<Duty>`
+
+
+## Contributors 
+
+[Rabin Kandel](https://github.com/kandelrabin)
+
+[Aaron Ayeni](https://github.com/AaronAyeni)
+
+[Dena Shiranipour](https://github.com/dena-shiranipour)
+
+[Kate Lau](https://github.com/kate-lau)
+
